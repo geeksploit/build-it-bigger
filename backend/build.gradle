@@ -5,6 +5,10 @@ apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
 
 dependencies {
+
+    // Java library dependency
+    implementation project(':javaJokes')
+
     implementation 'com.google.endpoints:endpoints-framework:2.0.9'
     implementation 'javax.inject:javax.inject:1'
 
