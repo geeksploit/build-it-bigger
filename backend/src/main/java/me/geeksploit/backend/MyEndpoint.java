@@ -38,6 +38,13 @@ public class MyEndpoint {
      */
     @ApiMethod(name = "tellJoke")
     public MyBean tellJoke() {
+        // TODO: could you please elaborate on why does it fail to use an interface in place of concrete implementation?
+        // To reproduce the error:
+        // 1. Uncomment the following line (and comment the next one).
+        // 2. Do Build -> Clean.
+        // 3. Notice how Run tasks fail with the 'Unable to load class ...Joker' message.
+        // 4. Also notice that consequent builds also fail until you switch back to using an implementation instead of the interface.
+//        Joker joker = new SillyJoker();
         SillyJoker joker = new SillyJoker();
 
         MyBean response = new MyBean();
