@@ -29,3 +29,6 @@ repositories {
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+// TODO: replace with a path relevant to your system
+appengine.tools.cloudSdkHome="/home/geeksploit/bin/google-cloud-sdk"
