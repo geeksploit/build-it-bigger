@@ -1,4 +1,5 @@
 package me.geeksploit.javajokes;
 
-public class Joker {
+public interface Joker {
+    String tellJoke();
 }
