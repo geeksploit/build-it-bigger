@@ -28,4 +28,7 @@ dependencies {
 
     // Java library dependency
     implementation project(':javaJokes');
+
+    // Android library dependency
+    implementation project(':androidjokes');
 }
