@@ -18,6 +18,9 @@ public final class SillyJoker implements Joker {
         add("Q: Why was everyone so tired on April 1st?\nA: They had just finished a March of 31 days.");
     }};
 
+    public SillyJoker() {
+    }
+
     public SillyJoker(List<String> jokes) {
         this.jokes = jokes;
     }
