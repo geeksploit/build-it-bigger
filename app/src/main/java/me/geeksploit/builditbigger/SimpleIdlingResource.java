@@ -1,15 +1,22 @@
 package me.geeksploit.builditbigger;
 
+import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 class SimpleIdlingResource implements IdlingResource {
+
+    @Nullable
+    private volatile ResourceCallback mCallback;
+    private AtomicBoolean mIsIdle = new AtomicBoolean(true);
 
     /**
      * Returns the name of the resources (used for logging and idempotency of registration).
      */
     @Override
     public String getName() {
-        return null;
+        return getClass().getName();
     }
 
     /**
@@ -18,7 +25,7 @@ class SimpleIdlingResource implements IdlingResource {
      */
     @Override
     public boolean isIdleNow() {
-        return false;
+        return mIsIdle.get();
     }
 
     /**
@@ -40,6 +47,6 @@ class SimpleIdlingResource implements IdlingResource {
      */
     @Override
     public void registerIdleTransitionCallback(ResourceCallback callback) {
-
+        mCallback = callback;
     }
 }
