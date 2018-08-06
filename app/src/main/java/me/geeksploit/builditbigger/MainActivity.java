@@ -18,7 +18,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import me.geeksploit.androidjokes.JokeActivity;
+
+public class MainActivity extends AppCompatActivity
+    implements  EndpointsAsyncTask.DoneCallback {
     // Remove the below line after defining your own ad unit ID.
     private static final String TOAST_TEXT = "Test ads are being shown. "
             + "To show live ads, replace the ad unit ID in res/values/strings.xml with your own ad unit ID.";
@@ -150,5 +153,12 @@ public class MainActivity extends AppCompatActivity {
             mIdlingResource = new SimpleIdlingResource();
         }
         return mIdlingResource;
+    }
+
+    @Override
+    public void onDone(String result) {
+        Intent intent = new Intent(this, JokeActivity.class);
+        intent.putExtra(JokeActivity.EXTRA_JOKE, result);
+        startActivityForResult(intent, 0);
     }
 }

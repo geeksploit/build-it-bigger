@@ -1,7 +1,5 @@
 package me.geeksploit.builditbigger;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -11,7 +9,6 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
-import me.geeksploit.androidjokes.JokeActivity;
 import me.geeksploit.backend.myApi.MyApi;
 
 /**
@@ -19,12 +16,12 @@ import me.geeksploit.backend.myApi.MyApi;
  *
  * @see <a href="https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/77e9910911d5412e5efede5fa681ec105a0f02ad/HelloEndpoints#2-connecting-your-android-app-to-the-backend">Connecting your Android app to the backend</a>
  */
-class EndpointsAsyncTask extends AsyncTask<Activity, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<EndpointsAsyncTask.DoneCallback, Void, String> {
     private static MyApi myApiService = null;
-    private Activity context;
+    private DoneCallback doneCallback;
 
     @Override
-    protected String doInBackground(Activity... params) {
+    protected String doInBackground(DoneCallback... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -43,7 +40,7 @@ class EndpointsAsyncTask extends AsyncTask<Activity, Void, String> {
             myApiService = builder.build();
         }
 
-        context = params[0];
+        doneCallback = params[0];
 
         try {
             return myApiService.tellJoke().execute().getData();
@@ -53,9 +50,11 @@ class EndpointsAsyncTask extends AsyncTask<Activity, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        Intent intent = new Intent(context, JokeActivity.class);
-        intent.putExtra(JokeActivity.EXTRA_JOKE, result);
-        context.startActivityForResult(intent, 0);
+    protected void onPostExecute(final String result) {
+        if (doneCallback != null) doneCallback.onDone(result);
+    }
+
+    interface DoneCallback {
+        void onDone(String result);
     }
 }
