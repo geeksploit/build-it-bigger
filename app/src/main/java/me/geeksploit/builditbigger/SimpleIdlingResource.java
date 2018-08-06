@@ -49,4 +49,9 @@ class SimpleIdlingResource implements IdlingResource {
     public void registerIdleTransitionCallback(ResourceCallback callback) {
         mCallback = callback;
     }
+
+    public void setIdleState(boolean isIdle) {
+        mIsIdle.set(isIdle);
+        if (isIdle && mCallback != null) mCallback.onTransitionToIdle();
+    }
 }
