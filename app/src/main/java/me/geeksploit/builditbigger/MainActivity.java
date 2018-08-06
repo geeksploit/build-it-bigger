@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showJoke() {
+        if (mIdlingResource != null) mIdlingResource.setIdleState(false);
         new EndpointsAsyncTask().execute(this);
     }
 
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDone(String result) {
+        if (mIdlingResource != null) mIdlingResource.setIdleState(true);
         Intent intent = new Intent(this, JokeActivity.class);
         intent.putExtra(JokeActivity.EXTRA_JOKE, result);
         startActivityForResult(intent, 0);
