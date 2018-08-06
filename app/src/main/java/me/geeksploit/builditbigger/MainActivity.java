@@ -4,7 +4,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mNextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInterstitial();
+                showJoke();
             }
         });
 
@@ -71,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showJoke() {
+        new EndpointsAsyncTask().execute(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // TODO: is there a better way to trigger an ad once we come back from JokeActivity?
+        showInterstitial();
     }
 
     private InterstitialAd newInterstitialAd() {
