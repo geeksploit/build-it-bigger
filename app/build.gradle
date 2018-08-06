@@ -28,12 +28,8 @@ android {
     }
     flavorDimensions 'one'
     productFlavors {
-        free {
-            'me.geeksploit.builditbigger.free'
-        }
-        paid {
-            'me.geeksploit.builditbigger.paid'
-        }
+        free
+        paid
     }
 }
 
