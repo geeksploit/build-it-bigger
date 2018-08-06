@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
 
         // Create the next level button, which tries to show an interstitial when clicked.
         mNextLevelButton = ((Button) findViewById(R.id.next_level_button));
-        mNextLevelButton.setEnabled(false);
         mNextLevelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         // Create the InterstitialAd and set the adUnitId (defined in values/strings.xml).
         mInterstitialAd = newInterstitialAd();
-        loadInterstitial();
 
         // Toasts the test ad message on the screen. Remove this after defining your own ad unit ID.
         Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // TODO: is there a better way to trigger an ad once we come back from JokeActivity?
-        showInterstitial();
+        loadInterstitial();
     }
 
     private InterstitialAd newInterstitialAd() {
@@ -102,6 +100,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onAdLoaded() {
                 mNextLevelButton.setEnabled(true);
+                showInterstitial();
             }
 
             @Override
@@ -140,7 +139,6 @@ public class MainActivity extends AppCompatActivity
         // Show the next level and reload the ad to prepare for the level after.
         mLevelTextView.setText("Level " + (++mLevel));
         mInterstitialAd = newInterstitialAd();
-        loadInterstitial();
     }
 
     /**
