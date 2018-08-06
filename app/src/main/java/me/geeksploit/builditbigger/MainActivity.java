@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // TODO: is there a better way to trigger an ad once we come back from JokeActivity?
         showInterstitial();
     }
 
