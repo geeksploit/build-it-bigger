@@ -26,6 +26,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions 'one'
+    productFlavors {
+        free {
+            'me.geeksploit.builditbigger.free'
+        }
+        paid {
+            'me.geeksploit.builditbigger.paid'
+        }
+    }
 }
 
 dependencies {
